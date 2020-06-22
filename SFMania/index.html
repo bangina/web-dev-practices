@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+    <!-- header start -->
+    <div class="header">
+        <ul>
+            <li><a href="#" class="active">HOME</a></li>
+            <li><a href="#">Movie News</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Movie Info</a>
+                <div class="dropdown_content">
+                    <a href="#">Box Office</a>
+                    <a href="#">Movie Review</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">SF Movie</a>
+                <div class="dropdown_content">
+                    <a href="#">Star Wars</a>
+                    <a href="#">Ailen</a>
+                    <a href="#">Star Trek</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- header end -->
+
+    <!-- Contents start -->
+    <!-- slide section start -->
+    <div class="contents">
+        <div class="img-slides">
+            <ul class="slides">
+                <input type="radio" name="radiobtn" id="img-1" checked>
+                <li class="slide-container">
+                    <div class="slide">
+                        <img src="./img/movie_cut1.JPG" alt="img" />
+                    </div>
+                    <div class="slide-nav">
+                        <label for="img-4" class="prev">&#x2039</label>
+                        <label for="img-2" class="next">&#x203a</label>
+                    </div>
+                </li>
+                <input type="radio" name="radiobtn" id="img-2">
+                <li class="slide-container">
+                    <div class="slide">
+                        <img src="./img/movie_cut2.JPG" alt="img" />
+                    </div>
+                    <div class="slide-nav">
+                        <label for="img-1" class="prev">&#x2039</label>
+                        <label for="img-3" class="next">&#x203a</label>
+                    </div>
+                </li>
+                <input type="radio" name="radiobtn" id="img-3">
+                <li class="slide-container">
+                    <div class="slide">
+                        <img src="./img/movie_cut3.JPG" alt="img" />
+                    </div>
+                    <div class="slide-nav">
+                        <label for="img-2" class="prev">&#x2039</label>
+                        <label for="img-4" class="next">&#x203a</label>
+                    </div>
+                </li>
+                <input type="radio" name="radiobtn" id="img-4">
+                <li class="slide-container">
+                    <div class="slide">
+                        <img src="./img/movie_cut4.JPG" alt="img" />
+                    </div>
+                    <div class="slide-nav">
+                        <label for="img-3" class="prev">&#x2039</label>
+                        <label for="img-1" class="next">&#x203a</label>
+                    </div>
+                </li>
+                <!-- slider control buttons -->
+                <div class="control-box">
+                    <label for="img-1" class="control-btn"></label>
+                    <label for="img-2" class="control-btn"></label>
+                    <label for="img-3" class="control-btn"></label>
+                    <label for="img-4" class="control-btn"></label>
+                </div>
+            </ul>
+        </div>
+        <!-- slide section end -->
+        <!-- event section start -->
+        <div class="events">
+            <h2>Movie Events</h2>
+            <a href="#"><img src="https://placeimg.com/150/150/people" alt="img"></a>
+            <a href="#"><img src="https://placeimg.com/150/150/animals" alt="img"></a>
+            <a href="#"><img src="https://placeimg.com/150/150/tech" alt="img"></a>
+            <a href="#"><img src="https://placeimg.com/150/150/architecture" alt="img"></a>
+        </div>
+        <!-- event section end -->
+        <div class="tab-box">
+            <input type="radio" id="boxoffice" name="tab" checked>
+            <input type="radio" id="upcoming" name="tab">
+            <div class="tab-buttons">
+                <label for="boxoffice">Box Office</label>
+                <label for="upcoming">Upcoming</label>
+            </div>
+            <div class="tab-item">
+                <ol class="item">
+                    <li><strong class="tit">All I Can Say</strong></li>
+                    <li><span class="tit">Irresistible</span></li>
+                    <li><span class="tit">Beats</span></li>
+                    <li><span class="tit">The Transcendents</span></li>
+                </ol>
+            </div>
+            <div class="tab-item">
+                <ul class="item">
+                    <li><span class="tit">Palm Springs</span></li>
+                    <li><span class="tit">Never Too Late</span></li>
+                    <li><span class="tit">La Belle Époque </span></li>
+                    <li><span class="tit">The Tobacconist</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Contents end -->
+    <div class="footer">
+        <address>주식회사 이나방 / 경기도 안양시 동안구</address>
+        <h4>대표이사 : 방인아 / 사업자등록번호 : 123-45-67890<br />
+            <a href="mailto:mojaeina@gmail.com">문의 메일 보내기</a>/이 사이트의 모든 권리는 제작자에게 있습니다.
+        </h4>
+    </div>
+</body>
+
+</html>
