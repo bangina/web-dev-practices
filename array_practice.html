@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array 실습하기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            background-image: url("./code_bg.jpg");
+            background-size: cover;
+        }
+
+        body::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            z-index: -1;
+        }
+
+        #wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding-top: 50px;
+            flex-wrap: nowrap;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            transform: translate(0, 100px);
+        }
+
+        h2 {
+            width: 100%;
+            margin: 20px 0;
+            color: #fff;
+            font-size: 50px;
+            text-shadow: 1px 3px 4px rgba(255, 255, 255, 0.4);
+            letter-spacing: -1px;
+        }
+
+        input {
+            height: 40px;
+            line-height: 40px;
+            width: 450px;
+            float: left;
+            margin-right: 8px;
+            border: none;
+            box-shadow: 1px 3px 8px rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 0 10px;
+        }
+
+        button {
+            padding: 0 35px;
+            height: 40px;
+            line-height: 40px;
+            border: none;
+            background: rgb(219, 219, 219);
+            box-shadow: 1px 3px 8px rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 15px;
+            font-size: 15px;
+            float: right;
+
+        }
+
+        ul {
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        li {
+            border-bottom: 1px solid #fff;
+            text-align: left;
+            line-height: 40px;
+            height: 40px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 22px;
+            color: #fff;
+        }
+
+        li::before {
+            content: "";
+            margin-right: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #fff;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-right: 8px;
+        }
+
+        .close {
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>What to code today?</h2>
+        <form action="">
+            <input type="text" id="item" autofocus>
+            <button type="button" id="add" class="addBtn">Add</button>
+        </form>
+        <ul id="itemList">
+        </ul>
+    </div>
+    <!-- script -->
+    <script>
+        //empty array created
+        const itemList = [];
+        const addBtn = document.querySelector("#add");
+        const ul = document.querySelector("#itemList");
+        const item = document.querySelector("#item");
+
+
+
+        function removeList(e) {
+            // const targetSpan = e.target;
+            // const targetLi = targetSpan.parentNode;
+            // targetLi.remove();
+            const id = this.getAttribute("id");
+            itemList.splice(id - 1, 1);
+            // this.parentNode.remove();
+            showList();
+        }
+
+        //list showing function using the updated array
+        function showList() {
+            let list = "<ul>";
+            //list 전부 paint
+            for (let i = 0; i < itemList.length; i++) {
+                list += `<li>${itemList[i]}<span class="close" id="${i+1}">❌</span></li>`
+            }
+            ul.innerHTML = list;
+
+            const removeSpans = document.querySelectorAll(".close"); //여러개 집을 때는 qsAll
+            removeSpans.forEach(span => span.addEventListener("click", removeList));
+
+        }
+
+        //adding list function
+        function addList() {
+            let itemVal = item.value;
+            //if any item exists,
+            if (itemVal != null) {
+                itemList.push(itemVal);
+                item.value = "";
+                item.focus();
+            }
+            showList();
+        }
+        //add Event listener
+        addBtn.addEventListener("click", addList);
+    </script>
+</body>
+
+</html>
