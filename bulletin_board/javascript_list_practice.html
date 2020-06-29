@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #333
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        h1 {
+            width: 100%;
+            background: rgb(18, 171, 133);
+            color: #fff;
+            font-weight: normal;
+            padding: 10px 0 10px 30px;
+        }
+
+        div {
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        td,
+        th {
+            padding: 5px;
+        }
+
+        button {
+            border: none;
+            background: #fff;
+            color: rgb(18, 171, 133);
+            padding: 0 30px;
+            font-size: 14px;
+            line-height: 35px;
+            border-radius: 15px;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        thead {
+            background: rgb(241, 241, 241);
+
+        }
+
+        th {
+            font-weight: normal;
+        }
+
+        tbody td {
+            font-size: 14px;
+            line-height: 30px;
+        }
+
+        tbody tr:nth-child(2n) {
+            background: rgba(241, 241, 241, 0.368);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bulletin Board</h1>
+    <!-- <div> -->
+    <!-- 게시글 목록의 조회 옵션 표시영역 -->
+    <!-- <table> -->
+    <!-- <tr>
+                <td>글제목</td>
+                <td><input type="text"></td>
+                <td>등록일자</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>IP주소</td>
+                <td><input type="text"></td>
+                <td>게시여부</td>
+                <td><select id="">
+                        <option value="true">사용함</option>
+                        <option value="false">사용 안 함</option>
+                    </select></td>
+            </tr> -->
+    <!-- <tr> -->
+    <!-- <td colspan="4" style="text-align:center;"> -->
+    <!-- <button type="button">조회하기</button> -->
+    <button type="button" onclick="moveToCreate()">새글 쓰기</button>
+    <!-- </td> -->
+    <!-- </tr> -->
+    <!-- </table> -->
+    <!-- </div> -->
+    <!-- 게시글 목록 표시영역 -->
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>조회수</th>
+                    <th>공개여부</th>
+                    <th>IP주소</th>
+                    <th>작성일자</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+                <!-- JS로 동적으로 데이터 넣을 부분! -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        //create파일로 이동!
+        function moveToCreate() {
+            location.href = "./javascript_create_practice.html";
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            let articles = JSON.parse(xhr.responseText);
+            for (let i = 0; i < articles.length; i++) {
+                createRow(articles[i].ArticleIDX, articles[i].Title, articles[i].ViewCount, articles[i].IsDisplayYN,
+                    articles[i].IPAddress, articles[i].ModifyDate);
+            }
+        }
+        xhr.open('GET', "http://edu.msoftware.co.kr/api/articles");
+        xhr.send();
+
+        function createRow(articleIdx, title, viewCount, isDisplayedYN, ipAddress, modifyDate) {
+            const tbody = document.querySelector("#list");
+            const row = tbody.insertRow(0);
+            const cell0 = row.insertCell(0),
+                cell1 = row.insertCell(1),
+                cell2 = row.insertCell(2),
+                cell3 = row.insertCell(3),
+                cell4 = row.insertCell(4),
+                cell5 = row.insertCell(5);
+
+            cell0.innerHTML = articleIdx;
+            cell1.innerHTML = `<a href="./javascript_modify_practice.html?id=${articleIdx}">${title}</a>`;
+            cell2.innerHTML = viewCount;
+            cell3.innerHTML = isDisplayedYN;
+            cell4.innerHTML = ipAddress;
+            cell5.innerHTML = modifyDate;
+        }
+    </script>
+</body>
+<footer></footer>
+
+</html>

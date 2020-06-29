@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 작성</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #999;
+            padding: 10px;
+        }
+
+        div {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>글제목</td>
+                <td><input type="text" id="title"></td>
+                <td>게시여부</td>
+                <td>
+                    <select name="" id="display">
+                        <option value="true">게시</option>
+                        <option value="false">게시 안 함</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="display:100%">
+                    <textarea name="" id="contents" cols="50" rows="20"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align:center;">
+                    <button type="button" id="btnSave" onclick="fnSave()">저장</button>
+                    <button type="button" id="btnList">목록</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- script -->
+    <script>
+        const urlParameter = function (name) {
+            const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+
+        const idx = urlParameter('id');
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            let article = JSON.parse(xhr.responseText);
+            document.getElementById("title").value = article.Title;
+            document.getElementById("contents").value = article.Contents;
+            document.getElementById("display").value = article.IsDisplayYN;
+        }
+        xhr.open('GET', 'http://edu.msoftware.co.kr/api/article?idx=' + idx);
+        xhr.send();
+
+        function fnSave() {
+            //유효성 검사하기
+            const title = document.getElementById("title");
+            const display = document.getElementById("display");
+            const contents = document.getElementById("contents");
+            if (title.value == "") {
+                alert("제목을 입력해주세요.");
+                title.focus();
+                return false;
+            }
+            if (display.value == "") {
+                alert("게시여부를 선택해주세요.");
+                display.focus();
+                return false;
+            }
+            if (contents.value == "") {
+                alert("내용을 입력해주세요.");
+                contents.focus();
+                return false;
+            }
+            //유효성 검사 끝
+
+            //서버로 보낼 데이터 구조 및 데이터 세팅
+            const article = {
+                "ArticleIDX": idx,
+                "BoardIDX": 0,
+                "ArticleTypeCode": 0,
+                "Title": document.getElementById("title").value,
+                "Contents": document.getElementById("contents").value,
+                "IsDisplayYN": document.getElementById("display").value,
+            };
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("게시글이 등록되었습니다.");
+                    location.href = "./javascript_list_practice.html";
+                } else {
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.open('POST', 'http://edu.msoftware.co.kr/api/article/update');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(article));  
+        }
+
+        function fnDelete() {
+            if (confirm('정말로 삭제?')) {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        alert("삭제완료");
+                        location.href = "./javascript_list_practice.html ";
+                    } else {
+                        console.error(xhr.responseText);
+                    }
+                };
+                xhr.open('GET', 'http://edu.msoftware.co.kr/api/article/delete?idx=' + idx);
+                xhr.send();
+            }
+        }
+    </script>
+</body>
+
+</html>
